@@ -1,14 +1,19 @@
-
+import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import './App.css'
+import Header from "./components/Header"
+import Login from "./components/Login"
+import Browser from './components/Browser'; 
 
 function App() {
 
   return (
-    <>
-    <h1 class="text-3xl font-bold underline text-green-700 ">
-    Hello world!
-  </h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/header' element={<Header/>}/>
+        <Route path='/' element={<Login/>}/>
+        <Route path='/Browser' element={<Browser/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
