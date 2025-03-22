@@ -1,30 +1,113 @@
 import React from 'react'
 import Header from './Header'
 import { bg_img } from '../utils/Helper'
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import {isValid, signUpValidation} from '../utils/Validation'
+import { onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile  } from "firebase/auth";
+import {auth} from "../utils/firebase";
+import { useNavigate } from 'react-router-dom';
+import {profile_Img} from "../utils/Helper"
+import { addUser, removeUser } from '../utils/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Login = () => {
   const[islogin, setlogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const Email = useRef(null);
   const Password = useRef(null);
   const rePassword = useRef(null);
 
-  const handleSignup=(Email, Password, rePassword)=>{
+  useEffect(()=>{
+  
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // https://firebase.google.com/docs/reference/js/auth.user
+          navigate("/");
+            
+        } 
+      });
+  
+    },[])
 
+
+  const handleSignup=(Email, Password, rePassword)=>{
+   
     const validation = signUpValidation(Email.current.value, Password.current.value, rePassword.current.value);
     setErrorMessage( validation);
+    console.log(validation );
+    if(validation !== undefined) return;
+    
+
+    // sign-up logic
+    createUserWithEmailAndPassword(auth, Email.current.value, Password.current.value)
+      .then((userCredential) => {
+    // Signed up 
+        const user = userCredential.user;
+        console.log(user.uid);
+        
+        updateProfile(user, {
+        displayName: "Abhishek kumar",
+        photoURL: {profile_Img}
+    }).then(() => {
+      // Profile updated!
+     
+    }).catch((error) => {
+      // An error occurred
+      setErrorMessage("fail to update");
+      console.log("fail to update: "+ error.message);
+    });
+    
+    dispatch(addUser({email: user.email, uid:user.uid, displayName:user.displayName, photoURL: user.photoURL}))
+    navigate("/")
+
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorCode = error.code;
+        console.log(errorCode);
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        setErrorMessage(errorMessage);
+    
+  });
+
+
   }
 
   const handleSignin=(Email, Password)=>{
+    
     const validation = isValid(Email.current.value, Password.current.value);
     setErrorMessage( validation);
+    if(validation !== null) return;
+  
+    //sign-in logic
+
+    signInWithEmailAndPassword(auth, Email.current.value, Password.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user , "line - 97");
+    console.log(user?.uid);
+    console.log(user?.displayName);
+    dispatch(addUser({email: user.email, uid:user.uid, displayName:user.displayName, photoURL: user.photoURL}))
+    navigate("/");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    setErrorMessage(errorMessage);
+  });
+
+
   }
   return (
     <div>
-        <Header/>
+        <Header className="z-1001"/>
 
         <img src={bg_img} alt="background img" className='absolute ' />
 
@@ -39,11 +122,11 @@ const Login = () => {
               className='flex flex-col gap-10  '
             >
 
-                  <input  ref={Email} type="text" placeholder='Enter emailId...' className='bg-gray-700 p-2  h-12 text-white' />
+                  <input  ref={Email} type="text" placeholder='Enter emailId...' className='bg-gray-700 p-2  h-12 text-white' autoComplete="current-password"/>
 
-                  <input ref={Password} type="password" placeholder='Password' className='bg-gray-700 h-12 p-2 text-white' />
+                  <input ref={Password} type="password" placeholder='Password' className='bg-gray-700 h-12 p-2 text-white' autoComplete="current-password"/>
 
-                  {!islogin && <input ref={rePassword} type="password" placeholder='Re-enter Password' className='bg-gray-700  h-12 text-white' />}
+                  {!islogin && <input ref={rePassword} type="password" placeholder='Re-enter Password' className='bg-gray-700  h-12 text-white' autoComplete="current-password"/>}
 
                   { errorMessage && (<p className='text-red-800  '>{errorMessage?errorMessage:null}</p>)}
                   <button 
