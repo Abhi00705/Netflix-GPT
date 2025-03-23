@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { options } from '../utils/Helper';
 import {addTrailer} from "../utils/movieSlice"
 
+
 const VedioBackground = ({id}) => {
-  
+    const muteRef = useRef(null);
     const dispatch = useDispatch();
     const[trailerKey, setTrailerKey] = useState(null);
     const trailerVedio = useSelector((state)=> state.movie?.trailerMovie);
@@ -28,12 +29,13 @@ const VedioBackground = ({id}) => {
   return (
     <div>
       <iframe  
+        ref={muteRef}
         className=' w-screen h-screen '
         src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1`} 
         title="YouTube video player" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen
+        referrerPolicy="strict-origin-when-cross-origin" 
+        allowFullScreen
         
         ></iframe>
         

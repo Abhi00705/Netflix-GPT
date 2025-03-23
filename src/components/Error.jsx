@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Error = () => {
+const Error = ({message}) => {
   return (
     <div className='font-bold text-2xl '>
-      error
+      {message}
     </div>
   )
 }
