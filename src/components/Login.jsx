@@ -38,7 +38,7 @@ const Login = () => {
    
     const validation = signUpValidation(Email.current.value, Password.current.value, rePassword.current.value);
     setErrorMessage( validation);
-    console.log(validation );
+  
     if(validation !== undefined) return;
     
 
@@ -47,7 +47,7 @@ const Login = () => {
       .then((userCredential) => {
     // Signed up 
         const user = userCredential.user;
-        console.log(user.uid);
+        
         
         updateProfile(user, {
         displayName: "Abhishek kumar",
@@ -58,7 +58,7 @@ const Login = () => {
     }).catch((error) => {
       // An error occurred
       setErrorMessage("fail to update");
-      console.log("fail to update: "+ error.message);
+     
     });
     
     dispatch(addUser({email: user.email, uid:user.uid, displayName:user.displayName, photoURL: user.photoURL}))
@@ -66,11 +66,11 @@ const Login = () => {
 
       })
       .catch((error) => {
-        console.log(error);
+       
         const errorCode = error.code;
-        console.log(errorCode);
+       
         const errorMessage = error.message;
-        console.log(errorMessage);
+        
         setErrorMessage(errorMessage);
     
   });
@@ -90,16 +90,14 @@ const Login = () => {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user , "line - 97");
-    console.log(user?.uid);
-    console.log(user?.displayName);
+   
     dispatch(addUser({email: user.email, uid:user.uid, displayName:user.displayName, photoURL: user.photoURL}))
     navigate("/");
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorMessage);
+   
     setErrorMessage(errorMessage);
   });
 

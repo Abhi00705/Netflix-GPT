@@ -9,9 +9,10 @@ import { addUser, removeUser } from '../utils/userSlice';
 import useFetch_API from "../hooks/useFetch_API"
 import MainContainer from "./mainContainer";
 import SecondaryContainer from './secondaryContainer';
+import NetflixGpt from "./NetflixGpt";
 
 const Body = () => {
-
+const gptStatus = useSelector((state)=>state.gpt.gptStatus);
 const navigate = useNavigate();
 const dispatch = useDispatch();
 
@@ -36,10 +37,15 @@ useFetch_API();
 
 
   return (
-    <div>
+    <div className=' w-[95rem] box-border '>
       <Header />
+
+      {gptStatus?<NetflixGpt/>:
+        <>
       <MainContainer/>  
       <SecondaryContainer/>
+      </>
+      }
 
     </div>
   )

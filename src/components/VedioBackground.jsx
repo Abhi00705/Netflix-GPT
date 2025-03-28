@@ -30,7 +30,7 @@ const VedioBackground = ({id}) => {
     <div>
       <iframe  
         ref={muteRef}
-        className=' w-screen h-screen '
+        className=' w-[95rem] h-screen '
         src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1`} 
         title="YouTube video player" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

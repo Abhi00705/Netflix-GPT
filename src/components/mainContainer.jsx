@@ -8,9 +8,9 @@ const MainContainer = () => {
   const movies = useSelector((state) => state.movie?.nowPlayingMovie);
   if(!movies)return;
   const movie = movies[0];
-  // console.log(movie);
+  
   return (
-    <div>
+    <div className='w-[95rem] box-border'>
       <Title title={movie?.original_title} overView={movie?.overview}/>
       <VedioBackground id={movie?.id}/>
     </div>

@@ -17,7 +17,7 @@ const usePopularMovie = async(movieURL, typeOfMovie)=>{
             
            }
            catch(err){
-            console.log("Error: ",err.message);
+            throw new Error(`Failed to fetch data: ${err.message}`);
            }
     }
     

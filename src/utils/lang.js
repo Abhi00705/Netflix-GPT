@@ -1,0 +1,24 @@
+export const lang = {
+    eng:{
+        search: "search",
+        placeHolder: "What do you want today?",
+        logout: "logout",
+        login: "login",
+        netflixGptBtn: "netflixGptBtn"
+    },
+    hin:{
+        search: "खोज",
+        placeHolder: "आज आप क्या चाहते हैं?",
+        logout: "लॉग आउट",
+        login: "प्रवेश",
+        netflixGptBtn: "नेटफ्लिक्स-जीपीटी"
+    },
+    skt:{
+        search: "अन्वेषण",
+        placeHolder: "अद्य त्वं किं इच्छसि ?",
+        logout: "लॉग आउट",
+        login: "प्रवेशः",
+        netflixGptBtn: "नेटफ्लिक्स-जीपीटी"
+    }
+}
+export default lang;

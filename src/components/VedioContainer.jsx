@@ -10,7 +10,7 @@ const VedioContainer = ({title, movie}) => {
   
     return(
         <>
-            <div className=' p-4'>
+            <div className=' p-4 w-[95rem]'>
                 <h1 className='text-lg p-2 font-bold text-white'>{title}</h1>
 
                 <div className='flex '>

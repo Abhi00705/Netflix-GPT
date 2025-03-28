@@ -12,7 +12,7 @@ const useFetch_API = () => {
                 const res = await fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", options);
                 const jsonRes = await res.json();
                 dispatch(addMovie(jsonRes?.results));
-                console.log(jsonRes?.results);
+                (jsonRes?.results);
             } catch (err) {
                 console.error("Failed to fetch data:", err.message);
             }
