@@ -10,6 +10,7 @@ import {lang} from "../utils/lang";
 const NetflixGpt = () => {
   const[lang1, setLang1] = useState();
  const language = useSelector((state)=>state.lang.langStatus);
+ console.log(language);
 // console.log(lang[language].search, "checking");
  
  
