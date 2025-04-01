@@ -4,6 +4,8 @@ import movieReducer from "./movieSlice"
 import gptReducer from "./gptSlice";
 import langReducer from "./langSlice";
 
+
+
 const store =  configureStore(
     {
         reducer:{
@@ -11,6 +13,8 @@ const store =  configureStore(
             movie: movieReducer,
             gpt: gptReducer,
             lang: langReducer,
+            
+            
         }
     }
 )

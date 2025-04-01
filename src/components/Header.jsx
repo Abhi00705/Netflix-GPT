@@ -16,7 +16,7 @@ const dispatch = useDispatch();
 const navigate = useNavigate();
 const[languageStatus, setlanguageStatus] = useState("eng");
 const language = useSelector((state)=>state.lang.langStatus);
-
+const gptStatus = useSelector((item)=>item.gpt.gptStatus);
 
 useEffect(()=>{
   setlanguageStatus(language);
@@ -87,8 +87,8 @@ const handleLanguageChange = (event) => {
       </div>
         <button 
           className='bg-purple-800 absolute top-7 right-40 text-white p-3 rounded-lg font-bold hover:bg-purple-800/80'
-          onClick={handleGptClick}
-        >{lang[languageStatus]?.netflixGptBtn}</button>
+            onClick={handleGptClick}
+        >{!gptStatus? lang[languageStatus]?.netflixGptBtn : lang[languageStatus]?.netflixGptBtnHome}</button>
         <button 
           className='absolute top-5 right-5 font-bold text-white border-2 border-white p-3 mt-2 z-12 cursor-pointer '
           onClick={()=>handleClick()}
